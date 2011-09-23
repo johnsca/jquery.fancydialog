@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="dialog.css" type="text/css" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+        <script type="text/javascript" src="../fancydialog/jquery.fancydialog.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#cancel').click(function() {
+                    $.fancydialog.cancel();
+                });
+
+                $('#ok').click(function() {
+                    $.fancydialog.complete($('#fruits').val());
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Choose Fruit</h1>
+
+        <fieldset>
+            <label for="fruits">Fruits:</label>
+            <select id="fruits">
+                <option>Apple</option>
+                <option>Banana</option>
+                <option>Orange</option>
+                <option>Peach</option>
+                <option>Pear</option>
+                <option>Promegranate</option>
+                <option>Star fruit</option>
+            </select>
+        </fieldset>
+
+        <fieldset class="buttons">
+            <button id="cancel">Cancel</button>
+            <button id="ok">Ok</button>
+        </fieldset>
+    </body>
+</html>

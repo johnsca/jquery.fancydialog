@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="dialog.css" type="text/css" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+        <script type="text/javascript" src="../fancydialog/jquery.fancydialog.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#cancel').click(function() {
+                    $.fancydialog.cancel();
+                });
+
+                $('#ok').click(function() {
+                    $.fancydialog.complete($('#colors').val());
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Choose Color</h1>
+
+        <fieldset>
+            <label for="Colors">Colors:</label>
+            <select id="colors">
+                <option>Red</option>
+                <option>Orange</option>
+                <option>Yellow</option>
+                <option>Green</option>
+                <option>Blue</option>
+                <option>Indigo</option>
+                <option>Violet</option>
+            </select>
+        </fieldset>
+
+        <fieldset class="buttons">
+            <button id="cancel">Cancel</button>
+            <button id="ok">Ok</button>
+        </fieldset>
+    </body>
+</html>

@@ -1,0 +1,158 @@
+<html>
+    <head>
+        <title>fancydialog Example</title>
+        <link rel="stylesheet" href="fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+        <style type="text/css">
+            iframe {
+                border-radius: 4px;
+                -moz-border-radius: 4px;
+                -khtml-border-radius: 4px;
+            }
+
+            h1, fieldset {
+                margin: 0;
+                margin-left: 10px;
+                padding: 10px;
+                width: 525px;
+            }
+
+            h1 {
+                margin-top: 10px;
+                border: 1px solid #777;
+                border-top-left-radius: 4px;
+                -moz-border-top-left-radius: 4px;
+                -khtml-border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+                -moz-border-top-right-radius: 4px;
+                -khtml-border-top-right-radius: 4px;
+                text-align: center;
+                background-color: #eee;
+                color: #333;
+            }
+
+            fieldset {
+                border: 0;
+                border: 1px solid #777;
+                border-bottom-style: dashed;
+                border-top: 0;
+            }
+
+            fieldset.bottom {
+                border: 0;
+                border: 1px solid #777;
+                border-bottom-left-radius: 4px;
+                -moz-border-bottom-left-radius: 4px;
+                -khtml-border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+                -moz-border-bottom-right-radius: 4px;
+                -khtml-border-bottom-right-radius: 4px;
+                border-top: 0;
+            }
+
+            label {
+                display: inline-block;
+                width: 200px;
+                font-weight: bold;
+                color: #222;
+            }
+
+            .modal-result,
+            #timeout {
+                border: 1px solid #999;
+                border-radius: 4px;
+                -moz-border-radius: 4px;
+                -khtml-border-radius: 4px;
+            }
+
+            .modal-result {
+                display: inline-block;
+                width: 175px;
+                overflow: hidden;
+                margin-right: 4px;
+                padding: 4px;
+                color: #555;
+            }
+
+            #timeout {
+                width: 3em;
+                margin: 0 4px;
+                padding: 2px 0;
+            }
+        </style>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+        <script type="text/javascript" src="fancybox/jquery.fancybox-1.3.4.js"></script>
+        <script type="text/javascript" src="../fancydialog/jquery.fancydialog.js"></script>
+        <script type="text/javascript">
+            function complete(element) {
+                return function(result) {
+                    console.log('Complete: '+element, result);
+                    $(element).text(result);
+                }
+            }
+
+            function cancel(element) {
+                return function(result) {
+                    $(element).text('Cancelled');
+                }
+            }
+
+            $(document).ready(function() {
+                $('#modal1').fancydialog({
+                    onDialogComplete: complete('#modal1-result'),
+                    onDialogCancel: cancel('#modal1-result')
+                });
+            });
+
+            $(document).ready(function() {
+                $('#modal2').change(function() {
+                    var url = $(this).val();
+                    if (url) {
+                        $.fancydialog(url, {
+                            onDialogComplete: complete('#modal2-result'),
+                            onDialogCancel: cancel('#modal2-result')
+                        });
+                    }
+                });
+            });
+
+            $(document).ready(function() {
+                var up = 1;
+                $('#modal3').click(function() {
+                    var timeout = setInterval(function() {
+                            $.fancydialog.send('Update #'+up+' from parent');
+                            up++;
+                        }, 1000);
+                    $.fancydialog('signal.html', {
+                        onDialogComplete: function(result) { complete('#modal3-result')(result); clearTimeout(timeout) },
+                        onDialogCancel: function() { cancel('#modal3-result')(); clearTimeout(timeout) }
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>FancyDialog Examples</h1>
+
+        <fieldset>
+            <label>Element Triggered</label>
+            <span class="modal-result" id="modal1-result">&nbsp;</span>
+            <a id="modal1" href="hours.html">Choose Hour</a>
+        </fieldset>
+
+        <fieldset>
+            <label>Programatically Triggered</label>
+            <span class="modal-result" id="modal2-result">&nbsp;</span>
+            <select id="modal2">
+                <option value="">Select dialog</option>
+                <option value="colors.html">Choose Color</option>
+                <option value="fruits.html">Choose Fruit</option>
+            </select>
+        </fieldset>
+
+        <fieldset class="bottom">
+            <label>Send from Parent</label>
+            <span class="modal-result" id="modal3-result">&nbsp;</span>
+            <button id="modal3">Show Dialog</button>
+        </fieldset>
+    </body>
+</html>

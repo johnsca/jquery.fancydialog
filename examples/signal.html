@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="dialog.css" type="text/css" />
+        <style type="text/css">
+            #updates {
+                height: 140px;
+                overflow-y: scroll;
+            }
+        </style>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+        <script type="text/javascript" src="../fancydialog/jquery.fancydialog.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var last_update;
+                $(document).bind('dialogSignal', function(event, data) {
+                    last_update = data;
+                    $('#updates').append(data+'<br/>');
+                });
+
+                $('#cancel').click(function() {
+                    $.fancydialog.cancel();
+                });
+
+                $('#ok').click(function() {
+                    $.fancydialog.complete(last_update);
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Display Updates</h1>
+
+        <fieldset id="updates">
+        </fieldset>
+
+        <fieldset class="buttons">
+            <button id="cancel">Cancel</button>
+            <button id="ok">Ok</button>
+        </fieldset>
+    </body>
+</html>
