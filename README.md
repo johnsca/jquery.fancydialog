@@ -89,7 +89,8 @@ The parent can send a signal to a dialog via:
     $.fancydialog.send(data);
 
 The dialog can listen for the custom event `dialogSignal` which will be
-triggered when the parent sends to the dialog.  The value of `data` will
-be used as the value for `extraParameters` when calling
-[trigger](http://api.jquery.com/trigger/), and thus will be passed into
-the signal handler.
+triggered when the parent sends to the dialog:
+
+    $(document).bind('dialogSignal', function(event, data) {
+        alert('Message from Ground Control: '+data);
+    });
