@@ -37,7 +37,7 @@
 
         options['onCleanup'] = function(elemArray, elemIndex, options) {
             if (!$.fancydialog.currentOptions['closedProgramatically']) {
-                if ($.fancydialog.currentOptions['onDialogComplete']) {
+                if ($.fancydialog.currentOptions['onDialogCancel']) {
                     $.fancydialog.currentOptions['onDialogCancel']();
                 }
             }
